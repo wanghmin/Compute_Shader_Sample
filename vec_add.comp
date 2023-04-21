@@ -1,0 +1,25 @@
+#version 430
+
+
+layout(std140, binding = 1) buffer vector_A
+{
+	vec4 A[];
+};
+
+layout(std140, binding = 2) buffer vector_B
+{
+	vec4 B[];
+};
+
+layout(std140, binding = 3) buffer vector_R
+{
+	vec4 R[];
+};
+
+layout(local_size_x = 256, local_size_y = 1, local_size_z = 1) in;
+
+void main() 
+{
+	uint id = gl_GlobalInvocationID.x;
+	R[id] = A[id] + B[id];
+}
